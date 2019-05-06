@@ -34,4 +34,5 @@ You must have Xcode and [Cocoa Pods](https://cocoapods.org/) installed as well a
     open Core\ ML\ Demo.xcworkspace
 
 ## Running on Android
-It is recommended to have [Android Studio](https://developer.android.com/studio) installed
+It is recommended to have [Android Studio](https://developer.android.com/studio) installed.
+Import the project and run the app.
