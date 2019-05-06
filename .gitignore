@@ -2,3 +2,4 @@
 *.mlmodel
 logs
 Pods
+.ipynb_checkpoints
