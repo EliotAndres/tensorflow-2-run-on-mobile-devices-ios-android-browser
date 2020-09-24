@@ -485,18 +485,19 @@ public class Camera2BasicFragment extends Fragment
     borderedText = new BorderedText(textSizePx);
     borderedText.setTypeface(Typeface.MONOSPACE);
     trackingOverlay = (OverlayView) view.findViewById(R.id.tracking_overlay);
-    trackingOverlay.addCallback(
-            new OverlayView.DrawCallback() {
-              @Override
-              public void drawCallback(final Canvas canvas) {
+    if (trackingOverlay != null) {
+      trackingOverlay.addCallback(
+              new OverlayView.DrawCallback() {
+                @Override
+                public void drawCallback(final Canvas canvas) {
 //
 //                final Bitmap copy = cropCopyBitmap;
 //                if (copy == null) {
 //                  return;
 //                }
 
-                final int backgroundColor = Color.argb(100, 0, 0, 0);
-                canvas.drawColor(backgroundColor);
+                  final int backgroundColor = Color.argb(100, 0, 0, 0);
+                  canvas.drawColor(backgroundColor);
 
 //                final Matrix matrix = new Matrix();
 //                final float scaleFactor = 2;
@@ -506,7 +507,7 @@ public class Camera2BasicFragment extends Fragment
 //                        canvas.getHeight() - copy.getHeight() * scaleFactor);
 //                canvas.drawBitmap(copy, matrix, new Paint());
 
-                final Vector<String> lines = new Vector<String>();
+                  final Vector<String> lines = new Vector<String>();
 //                if (detector != null) {
 //                  final String statString = detector.getStatString();
 //                  final String[] statLines = statString.split("\n");
@@ -514,18 +515,18 @@ public class Camera2BasicFragment extends Fragment
 //                    lines.add(line);
 //                  }
 //                }
-                lines.add("Test intro");
+                  lines.add("Test intro");
 
-                if (faces != null) {
-                  lines.add("Test " + faces.size());
+                  if (faces != null) {
+                    lines.add("Test " + faces.size());
 
-                  for (int i = 0; i < faces.size(); ++i) {
-                    Face face = faces.valueAt(i);
+                    for (int i = 0; i < faces.size(); ++i) {
+                      Face face = faces.valueAt(i);
 
 //                    Log.i(TAG, "faceid "+face.getPosition().x);
 //                    Log.i(TAG, "faceid "+face.getPosition().y);
-                    lines.add("Test " + i);
-                  }
+                      lines.add("Test " + i);
+                    }
 
 
 //                lines.add("Frame: " + previewWidth + "x" + previewHeight);
@@ -534,17 +535,17 @@ public class Camera2BasicFragment extends Fragment
 //                lines.add("Rotation: " + sensorOrientation);
 //                lines.add("Inference time: " + lastProcessingTimeMs + "ms");
 
-                } else {
-                  lines.add("No faces");
+                  } else {
+                    lines.add("No faces");
+
+                  }
+
+                  borderedText.drawLines(canvas, 10, canvas.getHeight() - 10, lines);
+
 
                 }
-
-                borderedText.drawLines(canvas, 10, canvas.getHeight() - 10, lines);
-
-
-              }
-            });
-
+              });
+    }
     // Start initial model.
   }
 
@@ -952,7 +953,9 @@ public class Camera2BasicFragment extends Fragment
 
 
     Log.i(TAG, "facelen "+ faces.size());
-    trackingOverlay.postInvalidate();
+    if (trackingOverlay != null) {
+      trackingOverlay.postInvalidate();
+    }
 
     bitmap.recycle();
     showToast(textToShow);
